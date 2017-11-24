@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetAPI", "BudgetAPI\BudgetAPI.csproj", "{BFCF76FB-AB28-43FD-BF00-14C12C2A3371}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetAPI", "BudgetAPI\BudgetAPI.csproj", "{BFCF76FB-AB28-43FD-BF00-14C12C2A3371}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetClient", "BudgetClient\BudgetClient.csproj", "{8ED28908-F8E9-4B07-A6EB-8BC5C53F0479}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BFCF76FB-AB28-43FD-BF00-14C12C2A3371}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFCF76FB-AB28-43FD-BF00-14C12C2A3371}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFCF76FB-AB28-43FD-BF00-14C12C2A3371}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ED28908-F8E9-4B07-A6EB-8BC5C53F0479}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ED28908-F8E9-4B07-A6EB-8BC5C53F0479}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ED28908-F8E9-4B07-A6EB-8BC5C53F0479}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ED28908-F8E9-4B07-A6EB-8BC5C53F0479}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -20,11 +20,11 @@ namespace BudgetAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Categories
+        // GET: api/Categories?userid=N
         [HttpGet]
-        public IEnumerable<Category> GetCategories()
+        public IEnumerable<Category> GetCategories(int userid)
         {
-            return _context.Categories;
+            return _context.Categories.Where(c => c.UserID == userid || userid == 0);
         }
 
         // GET: api/Categories/5
