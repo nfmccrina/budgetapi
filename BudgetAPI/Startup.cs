@@ -30,7 +30,7 @@ namespace BudgetAPI
             {
                 options.AddPolicy("BudgetCORSPolicy", builder =>
                 {
-                    builder.WithOrigins(new[] { "http://localhost:8080" })
+                    builder.AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader();
                 });
@@ -45,6 +45,8 @@ namespace BudgetAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseMvc();
             app.UseCors("BudgetCORSPolicy");
         }
