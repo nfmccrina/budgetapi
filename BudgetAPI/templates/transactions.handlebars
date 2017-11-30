@@ -1,10 +1,35 @@
 ﻿<tbody>
     {{#each transactions}}
     <tr>
-        <td>{{this.date}}</td>
-        <td>{{this.description}}</td>
-        <td>{{this.category}}</td>
-        <td>{{this.amount}}</td>
+        <td>
+            <div class="dateCell displayCell">{{formattedDate this.Date}}</div>
+            <div class="dateCell editCell">
+                <input type="date" class="dateEditInput" value="{{formattedDate this.Date}}" />
+            </div>
+        </td>
+        <td>
+            <div class="descriptionCell displayCell">{{this.Description}}</div>
+            <div class="descriptionCell editCell">
+                <input type="text" class="descriptionEditInput" value="{{this.Description}}" />
+            </div>
+        </td>
+        <td>
+            <div class="categoryCell displayCell">{{this.Category.name}}</div>
+            <div class="categoryCell editCell">
+                <input type="text" class="categoryEditInput" value="{{this.Category.name}}" />
+            </div>
+        </td>
+        <td>
+            <div class="amountCell displayCell">{{formattedMoneyAmount this.AmountInCents}}</div>
+            <div class="amountCell editCell">
+                <input type="text" class="amountEditInput" value="{{formattedMoneyAmount this.AmountInCents}}" />
+            </div>
+        </td>
+        <td>
+            <div class="buttonCell">
+                <button class="transactionEditButton">Edit</button>
+            </div>
+        </td>
     </tr>
     {{/each}}
 </tbody>
