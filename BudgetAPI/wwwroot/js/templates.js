@@ -36,12 +36,14 @@ templates['transactions'] = template({"1":function(container,depth0,helpers,part
     + alias3((helpers.formattedMoneyAmount || (depth0 && depth0.formattedMoneyAmount) || alias2).call(alias1,(depth0 != null ? depth0.AmountInCents : depth0),{"name":"formattedMoneyAmount","hash":{},"data":data}))
     + "</div>\r\n            <div class=\"amountCell editCell\">\r\n                <input type=\"text\" class=\"amountEditInput\" value=\""
     + alias3((helpers.formattedMoneyAmount || (depth0 && depth0.formattedMoneyAmount) || alias2).call(alias1,(depth0 != null ? depth0.AmountInCents : depth0),{"name":"formattedMoneyAmount","hash":{},"data":data}))
-    + "\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"buttonCell\">\r\n                <button class=\"transactionEditButton\">Edit</button>\r\n            </div>\r\n        </td>\r\n    </tr>\r\n";
+    + "\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"buttonCell\">\r\n                <button class=\"transactionEditButton\">Edit</button>\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"hidden idCell\">\r\n                <input type=\"hidden\" value=\""
+    + alias3(alias4((depth0 != null ? depth0.TransactionID : depth0), depth0))
+    + "\" />\r\n            </div>\r\n        </td>\r\n    </tr>\r\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
   return "﻿<tbody>\r\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.transactions : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "</tbody>";
+    + "    <tr>\r\n        <td>\r\n            <div class=\"dateCell addCell\">\r\n                <input type=\"date\" class=\"dateEditInput\" value=\"\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"descriptionCell addCell\">\r\n                <input type=\"text\" class=\"descriptionEditInput\" value=\"\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"categoryCell addCell\">\r\n                <input type=\"text\" class=\"categoryEditInput\" value=\"\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"amountCell addCell\">\r\n                <input type=\"text\" class=\"amountEditInput\" value=\"\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"buttonCell\">\r\n                <button class=\"transactionAddButton\">Add</button>\r\n            </div>\r\n        </td>\r\n    </tr>\r\n</tbody>";
 },"useData":true});
 })();

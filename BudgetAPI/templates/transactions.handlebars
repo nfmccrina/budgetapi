@@ -30,6 +30,38 @@
                 <button class="transactionEditButton">Edit</button>
             </div>
         </td>
+        <td>
+            <div class="hidden idCell">
+                <input type="hidden" value="{{this.TransactionID}}" />
+            </div>
+        </td>
     </tr>
     {{/each}}
+    <tr>
+        <td>
+            <div class="dateCell addCell">
+                <input type="date" class="dateEditInput" value="" />
+            </div>
+        </td>
+        <td>
+            <div class="descriptionCell addCell">
+                <input type="text" class="descriptionEditInput" value="" />
+            </div>
+        </td>
+        <td>
+            <div class="categoryCell addCell">
+                <input type="text" class="categoryEditInput" value="" />
+            </div>
+        </td>
+        <td>
+            <div class="amountCell addCell">
+                <input type="text" class="amountEditInput" value="" />
+            </div>
+        </td>
+        <td>
+            <div class="buttonCell">
+                <button class="transactionAddButton">Add</button>
+            </div>
+        </td>
+    </tr>
 </tbody>

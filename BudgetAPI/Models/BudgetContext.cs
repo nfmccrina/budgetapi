@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Entity.Infrastructure.Annotations;
 
 namespace BudgetAPI.Models
 {
@@ -13,6 +14,7 @@ namespace BudgetAPI.Models
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Budget> Budgets { get; set; }
         public DbSet<BudgetAllocation> BudgetAllocations { get; set; }
+        public DbSet<TransactionCategoryLink> TransactionCategoryLinks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -39,13 +41,13 @@ namespace BudgetAPI.Models
             modelBuilder.Entity<Transaction>().Property(t => t.AmountInCents).IsRequired();
             modelBuilder.Entity<Transaction>().Property(t => t.Date).IsRequired();
             modelBuilder.Entity<Transaction>().Property(t => t.Description).IsRequired();
-            modelBuilder.Entity<Transaction>().Property(t => t.CategoryID).IsRequired();
+            modelBuilder.Entity<Transaction>().Property(t => t.UserID).IsRequired();
 
             modelBuilder.Entity<Transaction>()
-                .HasOne<Category>()
+                .HasOne<User>()
                 .WithMany()
-                .HasForeignKey(t => t.CategoryID)
-                .HasConstraintName("FK_Transaction_Category");
+                .HasForeignKey(t => t.UserID)
+                .HasConstraintName("FK_Transaction_User");
 
             modelBuilder.Entity<Budget>().Property(b => b.BeginDate).IsRequired();
             modelBuilder.Entity<Budget>().Property(b => b.EndDate).IsRequired();
@@ -72,6 +74,22 @@ namespace BudgetAPI.Models
                 .WithMany()
                 .HasForeignKey(b => b.BudgetID)
                 .HasConstraintName("FK_BudgetAllocation_Budget");
+
+            modelBuilder.Entity<TransactionCategoryLink>().Property(tcl => tcl.TransactionID).IsRequired();
+            modelBuilder.Entity<TransactionCategoryLink>(entity => entity.HasIndex(tcl => tcl.TransactionID).IsUnique());
+            modelBuilder.Entity<TransactionCategoryLink>().Property(tcl => tcl.CategoryID).IsRequired();
+
+            modelBuilder.Entity<TransactionCategoryLink>()
+                .HasOne<Transaction>()
+                .WithMany()
+                .HasForeignKey(t => t.TransactionID)
+                .HasConstraintName("FK_TransactionCategoryLink_Transaction");
+
+            modelBuilder.Entity<TransactionCategoryLink>()
+                .HasOne<Category>()
+                .WithMany()
+                .HasForeignKey(t => t.CategoryID)
+                .HasConstraintName("FK_TransactionCategoryLink_Category");
         }
     }
 }

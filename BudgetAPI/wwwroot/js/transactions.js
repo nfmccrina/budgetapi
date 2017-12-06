@@ -10,9 +10,9 @@ function updateView(model) {
 
 function transactionEditButton_onClick(e) {
     editMode = !editMode;
-    $(e.target).val(editMode ? 'Save' : 'Edit');
-    $(e.target).parents('tr').find(editMode ? '.displayCell' : '.editCell').hide();
-    $(e.target).parents('tr').find(editMode ? '.editCell' : '.displayCell').show();
+    $(this).text(editMode ? 'Save' : 'Edit');
+    $(this).parents('tr').find(editMode ? '.displayCell' : '.editCell').hide();
+    $(this).parents('tr').find(editMode ? '.editCell' : '.displayCell').show();
 }
 
 function setupEventHandlers() {

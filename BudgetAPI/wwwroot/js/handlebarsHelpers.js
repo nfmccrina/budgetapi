@@ -4,6 +4,6 @@
     });
 
     Handlebars.registerHelper('formattedDate', function (rawDate) {
-        return moment(rawDate).format('DD MMM YYYY');
+        return moment(rawDate).format('YYYY-MM-DD');
     });
 }

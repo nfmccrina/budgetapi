@@ -22,15 +22,30 @@ namespace BudgetAPI.Controllers
 
         // GET: api/Transactions
         [HttpGet]
-        public IEnumerable<Transaction> GetTransactions()
+        public IEnumerable<ConsumableTransaction> GetTransactions()
         {
-            return _context.Transactions;
+            var transactions = _context.Transactions;
+
+            return _context.Transactions.Select((transaction, index) => new ConsumableTransaction()
+            {
+                TransactionID = transaction.TransactionID,
+                AmountInCents = transaction.AmountInCents,
+                Date = transaction.Date,
+                Description = transaction.Description,
+                UserID = transaction.UserID,
+                CategoryID = _context.TransactionCategoryLinks
+                    .Where(tcl => tcl.TransactionID == transaction.TransactionID)
+                    .Select(tcl => tcl.CategoryID)
+                    .FirstOrDefault()
+            });
         }
 
         // GET: api/Transactions/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTransaction([FromRoute] int id)
         {
+            ConsumableTransaction returnedTransaction;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -43,25 +58,71 @@ namespace BudgetAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(transaction);
+            var transactionCategoryLink = await _context.TransactionCategoryLinks.SingleOrDefaultAsync(m => m.TransactionID == id);
+
+            returnedTransaction = new ConsumableTransaction()
+            {
+                TransactionID = transaction.TransactionID,
+                AmountInCents = transaction.AmountInCents,
+                Date = transaction.Date,
+                Description = transaction.Description,
+                UserID = transaction.UserID,
+                CategoryID = 0
+            };
+
+            if (transactionCategoryLink != null)
+            {
+                returnedTransaction.CategoryID = transactionCategoryLink.CategoryID;
+            }
+
+            return Ok(returnedTransaction);
         }
 
         // PUT: api/Transactions/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTransaction([FromRoute] int id, [FromBody] Transaction transaction)
+        public async Task<IActionResult> PutTransaction([FromRoute] int id, [FromBody] ConsumableTransaction actualTransaction)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            var transaction = new Transaction()
+            {
+                TransactionID = actualTransaction.TransactionID,
+                AmountInCents = actualTransaction.AmountInCents,
+                Date = actualTransaction.Date,
+                Description = actualTransaction.Description,
+                UserID = actualTransaction.UserID
+            };
+
             if (id != transaction.TransactionID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(transaction).State = EntityState.Modified;
+            var transactionCategoryLink = _context.TransactionCategoryLinks.FirstOrDefault(tcl => tcl.TransactionID == id);
 
+            if (transactionCategoryLink == null && actualTransaction.CategoryID != 0)
+            {
+                _context.TransactionCategoryLinks.Add(new TransactionCategoryLink()
+                {
+                    TransactionID = id,
+                    CategoryID = actualTransaction.CategoryID
+                });
+            }
+            else if (transactionCategoryLink != null && actualTransaction.CategoryID == 0)
+            {
+                _context.Entry(transactionCategoryLink).State = EntityState.Deleted;
+            }
+            else
+            {
+                transactionCategoryLink.CategoryID = actualTransaction.CategoryID;
+                _context.Entry(transactionCategoryLink).State = EntityState.Modified;
+            }
+
+            _context.Entry(transaction).State = EntityState.Modified;
+            
             try
             {
                 await _context.SaveChangesAsync();
