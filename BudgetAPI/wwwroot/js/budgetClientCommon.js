@@ -1,10 +1,12 @@
-﻿function CategoryRepository() {
+﻿var endpoint = 'http://localhost:64696/api/';
+
+function CategoryRepository() {
     var categories = null;
 
     this.get = function (categoryId = -1) {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: (categoryId === -1 ? 'http://localhost:63733/api/Categories?userid=' : 'http://localhost:63733/api/Categories/' + categoryId + '?userid=') + sessionStorage.getItem('currentUserId'),
+                url: (categoryId === -1 ? endpoint + 'Categories?userid=' : endpoint + 'Categories/' + categoryId + '?userid=') + sessionStorage.getItem('currentUserId'),
                 method: 'GET',
                 success: resolve,
                 error: reject
@@ -15,7 +17,7 @@
     this.insert = function (newCategory) {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: 'http://localhost:63733/api/Categories',
+                url: endpoint + 'Categories',
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({
@@ -31,7 +33,7 @@
     this.delete = function (category) {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: 'http://localhost:63733/api/Categories/' + category.id,
+                url: endpoint + 'Categories/' + category.id,
                 method: 'DELETE',
                 success: resolve,
                 error: reject
@@ -42,7 +44,7 @@
     this.update = function (updatedCategory) {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: 'http://localhost:63733/api/Categories/' + updatedCategory.id,
+                url: endpoint + 'Categories/' + updatedCategory.id,
                 method: 'PUT',
                 contentType: 'application/json',
                 data: JSON.stringify({
@@ -66,47 +68,45 @@ function TransactionRepository() {
             transactions = [];
         }
 
-        var transactionPromise = Promise.resolve([
-            {
-                TransactionID: 1,
-                AmountInCents: 768,
-                Date: new Date('11/28/2017'),
-                Description: 'Publix',
-                CategoryID: 5
-            },
-            {
-                TransactionID: 2,
-                AmountInCents: 3604,
-                Date: new Date('11/29/2017'),
-                Description: 'QT',
-                CategoryID: 7
-            }
-        ]);
+        var transactionPromise = new Promise((resolve, reject) => {
+            $.ajax({
+                url: endpoint + 'Transactions',
+                method: 'GET',
+                contentType: 'application/json',
+                success: resolve,
+                error: reject
+            });
+        });
 
-        var categoryPromise = transactionPromise.then((t) => categoryRepository.get(t.CategoryID));
+        var categoryPromise = categoryRepository.get();
 
-        return Promise.all([transactionPromise, categoryPromise]).then((values) => Promise.resolve(values[0].map((t) => {
+        return Promise.all([transactionPromise, categoryPromise]).then((values) => Promise.resolve([values[0].map((t) => {
             return {
-                TransactionID: t.TransactionID,
-                AmountInCents: t.AmountInCents,
-                Date: t.Date,
-                Description: t.Description,
-                CategoryID: t.CategoryID,
-                Category: values[1].length > 0 ? values[1][0] : null
+                TransactionID: t.transactionID,
+                AmountInCents: t.amountInCents,
+                Date: t.date,
+                Description: t.description,
+                CategoryID: t.categoryID,
+                UserID: t.userID,
+                Category: values[1].length > 0 && values[1].some((c) => c.CategoryID === t.CategoryID) ? values[1].find((c) => c.CategoryID === t.CategoryID) : null
             }
-        })));
+        }),
+            values[1].map((c) => {
+                return {
+                    CategoryID: c.categoryID,
+                    Name: c.name,
+                    UserID: c.userID
+                }
+            })]));
     };
 
     this.insert = function (newTransaction) {
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: 'http://localhost:63733/api/Transactions',
+                url: endpoint + 'Transactions',
                 method: 'POST',
                 contentType: 'application/json',
-                data: JSON.stringify({
-                    AmountInCents: newTransaction.AmountInCents,
-                    UserID: sessionStorage.getItem('currentUserId')
-                }),
+                data: JSON.stringify(newTransaction),
                 success: resolve,
                 error: reject
             });

@@ -16,13 +16,17 @@
         <td>
             <div class="categoryCell displayCell">{{this.Category.name}}</div>
             <div class="categoryCell editCell">
-                <input type="text" class="categoryEditInput" value="{{this.Category.name}}" />
+                <select class="categoryEditSelect">
+                    {{#each ../categories}}
+                    <option value="{{this.CategoryID}}">{{this.Name}}</option>
+                    {{/each}}
+                </select>
             </div>
         </td>
         <td>
             <div class="amountCell displayCell">{{formattedMoneyAmount this.AmountInCents}}</div>
             <div class="amountCell editCell">
-                <input type="text" class="amountEditInput" value="{{formattedMoneyAmount this.AmountInCents}}" />
+                <label>$<input type="number" class="dollarEditInput numericOnly" placeholder="0" step="1" min="0" max="9999" value="{{dollarAmount this.AmountInCents}}" data-currentValue="0"/></label><label>.<input type="number" class="centEditInput" placeholder="00" step="1" min="0" max="99" value="{{centAmount this.AmountInCents}}" /></label>
             </div>
         </td>
         <td>
@@ -40,22 +44,26 @@
     <tr>
         <td>
             <div class="dateCell addCell">
-                <input type="date" class="dateEditInput" value="" />
+                <input type="date" class="dateAddInput" value="" />
             </div>
         </td>
         <td>
             <div class="descriptionCell addCell">
-                <input type="text" class="descriptionEditInput" value="" />
+                <input type="text" class="descriptionAddInput" value="" />
             </div>
         </td>
         <td>
             <div class="categoryCell addCell">
-                <input type="text" class="categoryEditInput" value="" />
+                <select class="categoryAddSelect">
+                    {{#each categories}}
+                    <option value="{{this.CategoryID}}">{{this.Name}}</option>
+                    {{/each}}
+                </select>
             </div>
         </td>
         <td>
             <div class="amountCell addCell">
-                <input type="text" class="amountEditInput" value="" />
+                <label>$<input type="number" class="dollarAddInput" placeholder="0" step="1" min="0" max="9999" value="0" data-currentValue="0" /></label><label>.<input type="number" class="centAddInput" placeholder="00" step="1" min="0" max="99" value="0" /></label>
             </div>
         </td>
         <td>
