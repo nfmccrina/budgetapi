@@ -1,6 +1,12 @@
 ﻿function registerHandlebarsHelpers() {
     Handlebars.registerHelper('formattedMoneyAmount', function (amount) {
-        return '$' + Math.floor(amount / 100) + '.' + (amount % 100);
+        var centAmount = amount % 100;
+
+        if (centAmount < 10) {
+            centAmount = '0' + centAmount;
+        }
+
+        return '$' + Math.floor(amount / 100) + '.' + centAmount;
     });
 
     Handlebars.registerHelper('dollarAmount', function (amountInCents) {
@@ -8,7 +14,13 @@
     });
 
     Handlebars.registerHelper('centAmount', function (amountInCents) {
-        return amountInCents % 100;
+        var result = amountInCents % 100;
+
+        if (result < 10) {
+            result = '0' + result;
+        }
+
+        return result;
     });
 
     Handlebars.registerHelper('formattedDate', function (rawDate) {

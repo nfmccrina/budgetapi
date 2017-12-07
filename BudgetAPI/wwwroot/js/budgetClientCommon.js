@@ -88,7 +88,7 @@ function TransactionRepository() {
                 Description: t.description,
                 CategoryID: t.categoryID,
                 UserID: t.userID,
-                Category: values[1].length > 0 && values[1].some((c) => c.CategoryID === t.CategoryID) ? values[1].find((c) => c.CategoryID === t.CategoryID) : null
+                Category: values[1].length > 0 && values[1].some((c) => c.categoryID === t.categoryID) ? values[1].find((c) => c.categoryID === t.categoryID) : null
             }
         }),
             values[1].map((c) => {
@@ -107,6 +107,18 @@ function TransactionRepository() {
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(newTransaction),
+                success: resolve,
+                error: reject
+            });
+        });
+    }
+
+    this.delete = function (oldTransactionID) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: endpoint + 'Transactions/' + oldTransactionID,
+                method: 'DELETE',
+                contentType: 'application/json',
                 success: resolve,
                 error: reject
             });

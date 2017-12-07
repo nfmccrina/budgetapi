@@ -1,6 +1,6 @@
 ﻿<tbody>
     {{#each transactions}}
-    <tr>
+    <tr data-budget-transactionID="{{this.TransactionID}}">
         <td>
             <div class="dateCell displayCell">{{formattedDate this.Date}}</div>
             <div class="dateCell editCell">
@@ -32,11 +32,7 @@
         <td>
             <div class="buttonCell">
                 <button class="transactionEditButton">Edit</button>
-            </div>
-        </td>
-        <td>
-            <div class="hidden idCell">
-                <input type="hidden" value="{{this.TransactionID}}" />
+                <button class="transactionDeleteButton">Delete</button>
             </div>
         </td>
     </tr>

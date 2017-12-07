@@ -21,6 +21,12 @@ function transactionAddButton_onClick(e) {
         alert('invalid money value');
         return;
     }
+
+    if (!moment($('.dateAddInput').val()).isValid()) {
+        alert('invalid date');
+        return;
+    }
+
     moneyValue = (parseInt($('.dollarAddInput').val()) * 100) + parseInt($('.centAddInput').val());
 
     var newTransaction = {
@@ -39,12 +45,26 @@ function transactionAddButton_onClick(e) {
         }));
 }
 
+function transactionDeleteButton_onClick(e) {
+    var transactionID = $(this).parents('tr').attr('data-budget-transactionID');
+
+    transactionRepository
+        .delete(transactionID)
+        .then((t) => transactionRepository.get())
+        .then((response) => updateView({
+            transactions: response[0],
+            categories: response[1]
+        }));
+}
+
 function setupEventHandlers() {
     $('.transactionEditButton').off('click');
     $('.transactionAddButton').off('click');
+    $('.transactionDeleteButton').off('click');
 
     $('.transactionEditButton').click(transactionEditButton_onClick);
     $('.transactionAddButton').click(transactionAddButton_onClick);
+    $('.transactionDeleteButton').click(transactionDeleteButton_onClick);
 }
 
 $(document).ready(function () {
