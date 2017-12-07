@@ -22,22 +22,21 @@ namespace BudgetAPI.Controllers
 
         // GET: api/Transactions
         [HttpGet]
-        public IEnumerable<ConsumableTransaction> GetTransactions()
+        public IEnumerable<ConsumableTransaction> GetTransactions(int userid)
         {
-            var transactions = _context.Transactions;
-
-            return _context.Transactions.Select((transaction, index) => new ConsumableTransaction()
-            {
-                TransactionID = transaction.TransactionID,
-                AmountInCents = transaction.AmountInCents,
-                Date = transaction.Date,
-                Description = transaction.Description,
-                UserID = transaction.UserID,
-                CategoryID = _context.TransactionCategoryLinks
-                    .Where(tcl => tcl.TransactionID == transaction.TransactionID)
-                    .Select(tcl => tcl.CategoryID)
-                    .FirstOrDefault()
-            });
+            var transactions = _context.Transactions
+                .Where(t => userid == 0 || t.UserID == userid).ToList();
+            
+            return transactions
+                .Select((transaction) => new ConsumableTransaction()
+                {
+                    TransactionID = transaction.TransactionID,
+                    AmountInCents = transaction.AmountInCents,
+                    Date = transaction.Date,
+                    Description = transaction.Description,
+                    UserID = transaction.UserID,
+                    CategoryID = GetCategoryIDForTransaction(transaction.TransactionID)
+                });
         }
 
         // GET: api/Transactions/5
@@ -67,13 +66,8 @@ namespace BudgetAPI.Controllers
                 Date = transaction.Date,
                 Description = transaction.Description,
                 UserID = transaction.UserID,
-                CategoryID = 0
+                CategoryID = GetCategoryIDForTransaction(transaction.TransactionID)
             };
-
-            if (transactionCategoryLink != null)
-            {
-                returnedTransaction.CategoryID = transactionCategoryLink.CategoryID;
-            }
 
             return Ok(returnedTransaction);
         }
@@ -144,17 +138,44 @@ namespace BudgetAPI.Controllers
 
         // POST: api/Transactions
         [HttpPost]
-        public async Task<IActionResult> PostTransaction([FromBody] Transaction transaction)
+        public async Task<IActionResult> PostTransaction([FromBody] ConsumableTransaction consumableTransaction)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            var transaction = new Transaction()
+            {
+                AmountInCents = consumableTransaction.AmountInCents,
+                Date = consumableTransaction.Date,
+                Description = consumableTransaction.Description,
+                UserID = consumableTransaction.UserID
+            };
+
             _context.Transactions.Add(transaction);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTransaction", new { id = transaction.TransactionID }, transaction);
+            if (consumableTransaction.CategoryID != 0)
+            {
+                _context.TransactionCategoryLinks.Add(new TransactionCategoryLink()
+                {
+                    TransactionID = transaction.TransactionID,
+                    CategoryID = consumableTransaction.CategoryID
+                });
+            }
+
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetTransaction", new { id = transaction.TransactionID }, new ConsumableTransaction()
+            {
+                TransactionID = transaction.TransactionID,
+                AmountInCents = transaction.AmountInCents,
+                Date = transaction.Date,
+                Description = transaction.Description,
+                CategoryID = consumableTransaction.CategoryID,
+                UserID = transaction.UserID
+            });
         }
 
         // DELETE: api/Transactions/5
@@ -167,9 +188,17 @@ namespace BudgetAPI.Controllers
             }
 
             var transaction = await _context.Transactions.SingleOrDefaultAsync(m => m.TransactionID == id);
+
             if (transaction == null)
             {
                 return NotFound();
+            }
+
+            var transactionCategoryLink = await _context.TransactionCategoryLinks.SingleOrDefaultAsync(m => m.TransactionID == id);
+
+            if (transactionCategoryLink != null)
+            {
+                _context.TransactionCategoryLinks.Remove(transactionCategoryLink);
             }
 
             _context.Transactions.Remove(transaction);
@@ -181,6 +210,24 @@ namespace BudgetAPI.Controllers
         private bool TransactionExists(int id)
         {
             return _context.Transactions.Any(e => e.TransactionID == id);
+        }
+
+        private int GetCategoryIDForTransaction(int transactionID)
+        {
+            int result;
+
+            if (_context.TransactionCategoryLinks.Any(tcl => tcl.TransactionID == transactionID))
+            {
+                result = _context.TransactionCategoryLinks
+                    .Where(tcl => tcl.TransactionID == transactionID)
+                    .First().CategoryID;
+            }
+            else
+            {
+                result = 0;
+            }
+
+            return result;
         }
     }
 }
