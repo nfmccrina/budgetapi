@@ -1,4 +1,4 @@
-﻿var endpoint = 'http://localhost:64696/api/';
+﻿var endpoint = 'http://localhost:63733/api/';
 
 function CategoryRepository() {
     var categories = null;
@@ -111,7 +111,7 @@ function TransactionRepository() {
                 error: reject
             });
         });
-    }
+    };
 
     this.delete = function (oldTransactionID) {
         return new Promise((resolve, reject) => {
@@ -119,6 +119,19 @@ function TransactionRepository() {
                 url: endpoint + 'Transactions/' + oldTransactionID,
                 method: 'DELETE',
                 contentType: 'application/json',
+                success: resolve,
+                error: reject
+            });
+        });
+    };
+
+    this.update = function (updatedTransaction) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: endpoint + 'Transactions/' + updatedTransaction.TransactionID,
+                method: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(updatedTransaction),
                 success: resolve,
                 error: reject
             });

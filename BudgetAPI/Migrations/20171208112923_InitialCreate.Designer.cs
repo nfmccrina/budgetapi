@@ -11,7 +11,7 @@ using System;
 namespace BudgetAPI.Migrations
 {
     [DbContext(typeof(BudgetContext))]
-    [Migration("20171207114810_InitialCreate")]
+    [Migration("20171208112923_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

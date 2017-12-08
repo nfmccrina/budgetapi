@@ -114,6 +114,9 @@ namespace BudgetAPI.Controllers
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
 
+            _context.TransactionCategoryLinks.RemoveRange(_context.TransactionCategoryLinks.Where(tcl => tcl.CategoryID == id));
+            await _context.SaveChangesAsync();
+
             return Ok(category);
         }
 

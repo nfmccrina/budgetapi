@@ -10,6 +10,10 @@ function updateView(model) {
 }
 
 function transactionEditButton_onClick(e) {
+    if (editMode) {
+        saveEditedTransaction($(this).parents('tr'));
+    }
+
     editMode = !editMode;
     $(this).text(editMode ? 'Save' : 'Edit');
     $(this).parents('tr').find(editMode ? '.displayCell' : '.editCell').hide();
@@ -27,7 +31,7 @@ function transactionAddButton_onClick(e) {
         return;
     }
 
-    moneyValue = (parseInt($('.dollarAddInput').val()) * 100) + parseInt($('.centAddInput').val());
+    var moneyValue = (parseInt($('.dollarAddInput').val()) * 100) + parseInt($('.centAddInput').val());
 
     var newTransaction = {
         AmountInCents: moneyValue.toString(),
@@ -51,6 +55,36 @@ function transactionDeleteButton_onClick(e) {
     transactionRepository
         .delete(transactionID)
         .then((t) => transactionRepository.get())
+        .then((response) => updateView({
+            transactions: response[0],
+            categories: response[1]
+        }));
+}
+
+function saveEditedTransaction(row) {
+    if (!/[0-9]+/.test(row.find('.dollarEditInput').val()) || !/[0-9]+/.test(row.find('.centEditInput').val())) {
+        alert('invalid money value');
+        return;
+    }
+
+    if (!moment(row.find('.dateEditInput').val()).isValid()) {
+        alert('invalid date');
+        return;
+    }
+
+    var moneyValue = (parseInt(row.find('.dollarEditInput').val()) * 100) + parseInt(row.find('.centEditInput').val());
+    var transaction = {
+        TransactionID: row.attr('data-budget-transactionID'),
+        AmountInCents: moneyValue,
+        Date: moment(row.find('.dateEditInput').val()).format('YYYY-MM-DD'),
+        Description: row.find('.descriptionEditInput').val(),
+        CategoryID: row.find('option:selected').val(),
+        UserID: sessionStorage.getItem('currentUserId')
+    };
+
+    transactionRepository
+        .update(transaction)
+        .then((response) => transactionRepository.get())
         .then((response) => updateView({
             transactions: response[0],
             categories: response[1]

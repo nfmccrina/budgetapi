@@ -30,10 +30,10 @@ templates['transactions'] = template({"1":function(container,depth0,helpers,part
     + alias2(alias1((depth0 != null ? depth0.Description : depth0), depth0))
     + "</div>\r\n            <div class=\"descriptionCell editCell\">\r\n                <input type=\"text\" class=\"descriptionEditInput\" value=\""
     + alias2(alias1((depth0 != null ? depth0.Description : depth0), depth0))
-    + "\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"categoryCell displayCell\">"
-    + alias2(alias1(((stack1 = (depth0 != null ? depth0.Category : depth0)) != null ? stack1.name : stack1), depth0))
-    + "</div>\r\n            <div class=\"categoryCell editCell\">\r\n                <select class=\"categoryEditSelect\">\r\n"
-    + ((stack1 = helpers.each.call(alias3,(depths[1] != null ? depths[1].categories : depths[1]),{"name":"each","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n"
+    + ((stack1 = helpers["if"].call(alias3,(depth0 != null ? depth0.Category : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.program(4, data, 0, blockParams, depths),"data":data})) != null ? stack1 : "")
+    + "            <div class=\"categoryCell editCell\">\r\n                <select class=\"categoryEditSelect\">\r\n                    <option value=\"0\">None</option>\r\n"
+    + ((stack1 = helpers.each.call(alias3,(depths[1] != null ? depths[1].categories : depths[1]),{"name":"each","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "                </select>\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"amountCell displayCell\">"
     + alias2((helpers.formattedMoneyAmount || (depth0 && depth0.formattedMoneyAmount) || alias4).call(alias3,(depth0 != null ? depth0.AmountInCents : depth0),{"name":"formattedMoneyAmount","hash":{},"data":data}))
     + "</div>\r\n            <div class=\"amountCell editCell\">\r\n                <label>$<input type=\"number\" class=\"dollarEditInput numericOnly\" placeholder=\"0\" step=\"1\" min=\"0\" max=\"9999\" value=\""
@@ -42,6 +42,14 @@ templates['transactions'] = template({"1":function(container,depth0,helpers,part
     + alias2((helpers.centAmount || (depth0 && depth0.centAmount) || alias4).call(alias3,(depth0 != null ? depth0.AmountInCents : depth0),{"name":"centAmount","hash":{},"data":data}))
     + "\" /></label>\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"buttonCell\">\r\n                <button class=\"transactionEditButton\">Edit</button>\r\n                <button class=\"transactionDeleteButton\">Delete</button>\r\n            </div>\r\n        </td>\r\n    </tr>\r\n";
 },"2":function(container,depth0,helpers,partials,data) {
+    var stack1;
+
+  return "            <div class=\"categoryCell displayCell\">"
+    + container.escapeExpression(container.lambda(((stack1 = (depth0 != null ? depth0.Category : depth0)) != null ? stack1.name : stack1), depth0))
+    + "</div>\r\n";
+},"4":function(container,depth0,helpers,partials,data) {
+    return "            <div class=\"categoryCell displayCell\">None</div>\r\n";
+},"6":function(container,depth0,helpers,partials,data) {
     var alias1=container.lambda, alias2=container.escapeExpression;
 
   return "                    <option value=\""
@@ -54,8 +62,8 @@ templates['transactions'] = template({"1":function(container,depth0,helpers,part
 
   return "﻿<tbody>\r\n"
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.transactions : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    <tr>\r\n        <td>\r\n            <div class=\"dateCell addCell\">\r\n                <input type=\"date\" class=\"dateAddInput\" value=\"\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"descriptionCell addCell\">\r\n                <input type=\"text\" class=\"descriptionAddInput\" value=\"\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"categoryCell addCell\">\r\n                <select class=\"categoryAddSelect\">\r\n"
-    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.categories : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    <tr>\r\n        <td>\r\n            <div class=\"dateCell addCell\">\r\n                <input type=\"date\" class=\"dateAddInput\" value=\"\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"descriptionCell addCell\">\r\n                <input type=\"text\" class=\"descriptionAddInput\" value=\"\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"categoryCell addCell\">\r\n                <select class=\"categoryAddSelect\">\r\n                    <option value=\"0\">None</option>\r\n"
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.categories : depth0),{"name":"each","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "                </select>\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"amountCell addCell\">\r\n                <label>$<input type=\"number\" class=\"dollarAddInput\" placeholder=\"0\" step=\"1\" min=\"0\" max=\"9999\" value=\"0\" data-currentValue=\"0\" /></label><label>.<input type=\"number\" class=\"centAddInput\" placeholder=\"00\" step=\"1\" min=\"0\" max=\"99\" value=\"0\" /></label>\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"buttonCell\">\r\n                <button class=\"transactionAddButton\">Add</button>\r\n            </div>\r\n        </td>\r\n    </tr>\r\n</tbody>";
 },"useData":true,"useDepths":true});
 })();
