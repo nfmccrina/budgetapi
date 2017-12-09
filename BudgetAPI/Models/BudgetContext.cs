@@ -51,6 +51,7 @@ namespace BudgetAPI.Models
             modelBuilder.Entity<Budget>().Property(b => b.BeginDate).IsRequired();
             modelBuilder.Entity<Budget>().Property(b => b.EndDate).IsRequired();
             modelBuilder.Entity<Budget>().Property(b => b.UserID).IsRequired();
+            modelBuilder.Entity<Budget>().Property(b => b.Name).HasDefaultValue(string.Empty);
 
             modelBuilder.Entity<Budget>()
                 .HasOne<User>()

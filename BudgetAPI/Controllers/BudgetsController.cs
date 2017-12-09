@@ -22,9 +22,9 @@ namespace BudgetAPI.Controllers
 
         // GET: api/Budgets
         [HttpGet]
-        public IEnumerable<Budget> GetBudgets()
+        public IEnumerable<Budget> GetBudgets(int userid)
         {
-            return _context.Budgets;
+            return _context.Budgets.Where(b => b.UserID == userid || userid == 0);
         }
 
         // GET: api/Budgets/5

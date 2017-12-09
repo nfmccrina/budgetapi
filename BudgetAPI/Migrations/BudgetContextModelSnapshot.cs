@@ -28,6 +28,10 @@ namespace BudgetAPI.Migrations
 
                     b.Property<DateTime>("EndDate");
 
+                    b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("");
+
                     b.Property<int>("UserID");
 
                     b.HasKey("BudgetID");

@@ -78,4 +78,6 @@ $(document).ready(function () {
     categoryRepository.get().then((response) => updateView({
         categories: response
     }));
+
+    insertNavBar();
 });

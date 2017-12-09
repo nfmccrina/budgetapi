@@ -29,6 +29,7 @@ namespace BudgetAPI.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     BeginDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: true, defaultValue: ""),
                     UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

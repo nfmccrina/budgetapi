@@ -110,4 +110,6 @@ $(document).ready(function () {
         transactions: t[0],
         categories: t[1]
     }));
+
+    insertNavBar();
 });

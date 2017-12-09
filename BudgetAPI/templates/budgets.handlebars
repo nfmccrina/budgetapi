@@ -1,0 +1,85 @@
+{{#each budgets}}
+<div class="card" data-budget-budget-id="{{this.BudgetID}}">
+    <div class="card-body card-display-mode">
+        <h4 class="card-title budget-name-display" data-budget-name="{{this.Name}}">{{this.Name}}</h4>
+        <p class="card-text budget-begin-date-display" data-budget-begin-date="{{formattedDate this.BeginDate}}">Begin Date: {{formattedDate this.BeginDate}}</p>
+        <p class="card-text budget-end-date-display" data-budget-end-date="{{formattedDate this.EndDate}}">End Date: {{formattedDate this.EndDate}}</p>
+        <p class="card-text">
+            <button class="btn btn-primary budget-edit-button">Edit</button>
+            <button class="btn btn-primary budget-delete-button">Delete</button>
+        </p>
+    </div>
+    <div class="card-body card-edit-mode">
+        <h4 class="card-title">Edit Budget</h4>
+        <div class="card-text">
+            <form>
+                <div class="form-group">
+                    <label for="budget-name-edit-input-{{this.BudgetID}}">Name</label>
+                    <input type="text" class="form-control budget-name-edit-input" id="budget-name-edit-input-{{this.BudgetID}}" />
+                </div>
+                <div class="form-group">
+                    <label for="budget-begin-date-edit-input-{{this.BudgetID}}">Begin Date</label>
+                    <input type="date" class="form-control budget-begin-date-edit-input" id="budget-begin-date-edit-input-{{this.BudgetID}}" />
+                </div>
+                <div class="form-group">
+                    <label for="budget-end-date-edit-input-{{this.BudgetID}}">End Date</label>
+                    <input type="date" class="form-control budget-end-date-edit-input" id="budget-end-date-edit-input-{{this.BudgetID}}" />
+                </div>
+            </form>
+        </div>
+        <div class="card-text">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>
+                            <label>
+                                Category
+                                <select>
+                                    <option value="0">None</option>
+                                    {{#each ../categories}}
+                                    <option value="{{this.CategoryID}}">{{this.Name}}</option>
+                                    {{/each}}
+                                </select>
+                            </label>
+                        </td>
+                        <td>
+                            <div class="amountCell editCell">
+                                <label>Allocation $<input type="number" class="dollarEditInput numericOnly" placeholder="0" step="1" min="0" max="9999" value="{{dollarAmount this.AmountInCents}}" data-currentValue="0" /></label><label>.<input type="number" class="centEditInput" placeholder="00" step="1" min="0" max="99" value="{{centAmount this.AmountInCents}}" /></label>
+                            </div>
+                        </td>
+                        <td>
+                            <button>Add</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-text">
+            <button class="btn btn-primary budget-edit-cancel-button">Cancel</button>
+            <button class="btn btn-primary budget-edit-save-button">Save</button>
+        </div>
+    </div>
+</div>
+{{/each}}
+<div class="card">
+    <div class="card-body card-add-budget">
+        <h4 class="card-title">Add New Budget</h4>
+        <div class="card-text">
+            <form>
+                <div class="form-group">
+                    <label for="addBudgetNameInput">Name</label>
+                    <input type="text" class="form-control" id="addBudgetNameInput" />
+                </div>
+                <div class="form-group">
+                    <label for="addBudgetBeginDateInput">Begin Date</label>
+                    <input type="date" class="form-control" id="addBudgetBeginDateInput" />
+                </div>
+                <div class="form-group">
+                    <label for="addBudgetEndDateInput">End Date</label>
+                    <input type="date" class="form-control" id="addBudgetEndDateInput" />
+                </div>
+                <button class="btn btn-primary budget-add-new-button">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

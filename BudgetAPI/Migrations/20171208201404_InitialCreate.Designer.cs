@@ -11,7 +11,7 @@ using System;
 namespace BudgetAPI.Migrations
 {
     [DbContext(typeof(BudgetContext))]
-    [Migration("20171208112923_InitialCreate")]
+    [Migration("20171208201404_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,10 @@ namespace BudgetAPI.Migrations
                     b.Property<DateTime>("BeginDate");
 
                     b.Property<DateTime>("EndDate");
+
+                    b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue("");
 
                     b.Property<int>("UserID");
 

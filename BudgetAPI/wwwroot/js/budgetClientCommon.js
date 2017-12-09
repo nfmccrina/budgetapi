@@ -1,5 +1,9 @@
 ﻿var endpoint = 'http://localhost:63733/api/';
 
+function insertNavBar() {
+    $('body').prepend(Handlebars.templates['navbar']({}));
+}
+
 function CategoryRepository() {
     var categories = null;
 
@@ -137,4 +141,66 @@ function TransactionRepository() {
             });
         });
     }
+}
+
+function BudgetRepository() {
+    this.get = function () {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: endpoint + 'Budgets?userid=' + sessionStorage.getItem('currentUserId'),
+                method: 'GET',
+                contentType: 'application/json',
+                success: function (response) {
+                    resolve(response.map((b) => {
+                        return {
+                            BudgetID: b.budgetID,
+                            Name: b.name,
+                            BeginDate: b.beginDate,
+                            EndDate: b.endDate,
+                            UserID: b.userID
+                        }
+                    }));
+                },
+                error: reject
+            });
+        });
+    };
+
+    this.insert = function (newBudget) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: endpoint + 'Budgets',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(newBudget),
+                success: resolve,
+                error: reject
+            });
+        });
+    };
+
+    this.delete = function (budgetID) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: endpoint + 'Budgets/' + budgetID,
+                method: 'DELETE',
+                contentType: 'application/json',
+                success: resolve,
+                error: reject
+            });
+        });
+    };
+
+    this.update = function (updatedBudget) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: endpoint + 'Budgets/' + updatedBudget.BudgetID,
+                method: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(updatedBudget),
+                success: resolve,
+                error: reject
+            });
+        });
+    };
 }
