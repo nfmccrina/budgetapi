@@ -5,6 +5,24 @@
         <p class="card-text budget-begin-date-display" data-budget-begin-date="{{formattedDate this.BeginDate}}">Begin Date: {{formattedDate this.BeginDate}}</p>
         <p class="card-text budget-end-date-display" data-budget-end-date="{{formattedDate this.EndDate}}">End Date: {{formattedDate this.EndDate}}</p>
         <p class="card-text">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Amount Allocated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each this.BudgetAllocations}}
+                    <tr data-budget-budget-allocation-id="{{this.BudgetAllocationID}}">
+                        <td class="categoryCell">{{getCategoryName ../../categories this.CategoryID}}</td>
+                        <td class="allocatedAmountCell">{{formattedMoneyAmount this.AllocatedAmountInCents}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </p>
+        <p class="card-text">
             <button class="btn btn-primary budget-edit-button">Edit</button>
             <button class="btn btn-primary budget-delete-button">Delete</button>
         </p>
@@ -29,7 +47,30 @@
         </div>
         <div class="card-text">
             <table class="table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Amount Allocated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
                 <tbody>
+                    {{#each this.BudgetAllocations}}
+                    <tr>
+                        <td>
+                            <label>
+                                Category
+                                {{> categorySelect categories=../categories }}
+                            </label>
+                        </td>
+                        <td>
+                            {{> moneyInput label='' amountInCents=this.AmountInCents}}
+                        </td>
+                        <td>
+                            <button>Save</button>
+                        </td>
+                    </tr>
+                    {{/each}}
                     <tr>
                         <td>
                             <label>
@@ -44,7 +85,7 @@
                         </td>
                         <td>
                             <div class="amountCell editCell">
-                                <label>Allocation $<input type="number" class="dollarEditInput numericOnly" placeholder="0" step="1" min="0" max="9999" value="{{dollarAmount this.AmountInCents}}" data-currentValue="0" /></label><label>.<input type="number" class="centEditInput" placeholder="00" step="1" min="0" max="99" value="{{centAmount this.AmountInCents}}" /></label>
+                                {{> moneyInput label='' amountInCents=this.AmountInCents}}
                             </div>
                         </td>
                         <td>

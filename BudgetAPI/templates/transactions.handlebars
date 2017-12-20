@@ -20,18 +20,13 @@
             <div class="categoryCell displayCell">None</div>
             {{/if}}
             <div class="categoryCell editCell">
-                <select class="categoryEditSelect">
-                    <option value="0">None</option>
-                    {{#each ../categories}}
-                    <option value="{{this.CategoryID}}">{{this.Name}}</option>
-                    {{/each}}
-                </select>
+                {{> categorySelect categories=../categories }}
             </div>
         </td>
         <td>
             <div class="amountCell displayCell">{{formattedMoneyAmount this.AmountInCents}}</div>
             <div class="amountCell editCell">
-                <label>$<input type="number" class="dollarEditInput numericOnly" placeholder="0" step="1" min="0" max="9999" value="{{dollarAmount this.AmountInCents}}" data-currentValue="0"/></label><label>.<input type="number" class="centEditInput" placeholder="00" step="1" min="0" max="99" value="{{centAmount this.AmountInCents}}" /></label>
+                {{> moneyInput label='' amountInCents=this.AmountInCents}}
             </div>
         </td>
         <td>
@@ -55,17 +50,12 @@
         </td>
         <td>
             <div class="categoryCell addCell">
-                <select class="categoryAddSelect">
-                    <option value="0">None</option>
-                    {{#each categories}}
-                    <option value="{{this.CategoryID}}">{{this.Name}}</option>
-                    {{/each}}
-                </select>
+                {{> categorySelect categories=categories}}
             </div>
         </td>
         <td>
             <div class="amountCell addCell">
-                <label>$<input type="number" class="dollarAddInput" placeholder="0" step="1" min="0" max="9999" value="0" data-currentValue="0" /></label><label>.<input type="number" class="centAddInput" placeholder="00" step="1" min="0" max="99" value="0" /></label>
+                {{> moneyInput label='' amountInCents=0}}
             </div>
         </td>
         <td>

@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compileTemplates": "handlebars ./templates -f ./wwwroot/js/templates.js"
+    "compilePartials":  "handlebars ./partials -p -f ./wwwroot/js/partials.js",
+    "compileTemplates": "handlebars ./templates -f ./wwwroot/js/templates.js",
+    "precompileHandlebars": "npm run compilePartials & npm run compileTemplates"
   },
   "author": "",
   "license": "ISC",

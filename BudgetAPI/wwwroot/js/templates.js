@@ -17,7 +17,9 @@ templates['budgets'] = template({"1":function(container,depth0,helpers,partials,
     + alias2((helpers.formattedDate || (depth0 && depth0.formattedDate) || alias4).call(alias3,(depth0 != null ? depth0.EndDate : depth0),{"name":"formattedDate","hash":{},"data":data}))
     + "\">End Date: "
     + alias2((helpers.formattedDate || (depth0 && depth0.formattedDate) || alias4).call(alias3,(depth0 != null ? depth0.EndDate : depth0),{"name":"formattedDate","hash":{},"data":data}))
-    + "</p>\r\n        <p class=\"card-text\">\r\n            <button class=\"btn btn-primary budget-edit-button\">Edit</button>\r\n            <button class=\"btn btn-primary budget-delete-button\">Delete</button>\r\n        </p>\r\n    </div>\r\n    <div class=\"card-body card-edit-mode\">\r\n        <h4 class=\"card-title\">Edit Budget</h4>\r\n        <div class=\"card-text\">\r\n            <form>\r\n                <div class=\"form-group\">\r\n                    <label for=\"budget-name-edit-input-"
+    + "</p>\r\n        <p class=\"card-text\">\r\n            <table class=\"table\">\r\n                <thead>\r\n                    <tr>\r\n                        <th>Category</th>\r\n                        <th>Amount Allocated</th>\r\n                    </tr>\r\n                </thead>\r\n                <tbody>\r\n"
+    + ((stack1 = helpers.each.call(alias3,(depth0 != null ? depth0.BudgetAllocations : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "                </tbody>\r\n            </table>\r\n        </p>\r\n        <p class=\"card-text\">\r\n            <button class=\"btn btn-primary budget-edit-button\">Edit</button>\r\n            <button class=\"btn btn-primary budget-delete-button\">Delete</button>\r\n        </p>\r\n    </div>\r\n    <div class=\"card-body card-edit-mode\">\r\n        <h4 class=\"card-title\">Edit Budget</h4>\r\n        <div class=\"card-text\">\r\n            <form>\r\n                <div class=\"form-group\">\r\n                    <label for=\"budget-name-edit-input-"
     + alias2(alias1((depth0 != null ? depth0.BudgetID : depth0), depth0))
     + "\">Name</label>\r\n                    <input type=\"text\" class=\"form-control budget-name-edit-input\" id=\"budget-name-edit-input-"
     + alias2(alias1((depth0 != null ? depth0.BudgetID : depth0), depth0))
@@ -29,14 +31,32 @@ templates['budgets'] = template({"1":function(container,depth0,helpers,partials,
     + alias2(alias1((depth0 != null ? depth0.BudgetID : depth0), depth0))
     + "\">End Date</label>\r\n                    <input type=\"date\" class=\"form-control budget-end-date-edit-input\" id=\"budget-end-date-edit-input-"
     + alias2(alias1((depth0 != null ? depth0.BudgetID : depth0), depth0))
-    + "\" />\r\n                </div>\r\n            </form>\r\n        </div>\r\n        <div class=\"card-text\">\r\n            <table class=\"table\">\r\n                <tbody>\r\n                    <tr>\r\n                        <td>\r\n                            <label>\r\n                                Category\r\n                                <select>\r\n                                    <option value=\"0\">None</option>\r\n"
-    + ((stack1 = helpers.each.call(alias3,(depths[1] != null ? depths[1].categories : depths[1]),{"name":"each","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "                                </select>\r\n                            </label>\r\n                        </td>\r\n                        <td>\r\n                            <div class=\"amountCell editCell\">\r\n                                <label>Allocation $<input type=\"number\" class=\"dollarEditInput numericOnly\" placeholder=\"0\" step=\"1\" min=\"0\" max=\"9999\" value=\""
-    + alias2((helpers.dollarAmount || (depth0 && depth0.dollarAmount) || alias4).call(alias3,(depth0 != null ? depth0.AmountInCents : depth0),{"name":"dollarAmount","hash":{},"data":data}))
-    + "\" data-currentValue=\"0\" /></label><label>.<input type=\"number\" class=\"centEditInput\" placeholder=\"00\" step=\"1\" min=\"0\" max=\"99\" value=\""
-    + alias2((helpers.centAmount || (depth0 && depth0.centAmount) || alias4).call(alias3,(depth0 != null ? depth0.AmountInCents : depth0),{"name":"centAmount","hash":{},"data":data}))
-    + "\" /></label>\r\n                            </div>\r\n                        </td>\r\n                        <td>\r\n                            <button>Add</button>\r\n                        </td>\r\n                    </tr>\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n        <div class=\"card-text\">\r\n            <button class=\"btn btn-primary budget-edit-cancel-button\">Cancel</button>\r\n            <button class=\"btn btn-primary budget-edit-save-button\">Save</button>\r\n        </div>\r\n    </div>\r\n</div>\r\n";
-},"2":function(container,depth0,helpers,partials,data) {
+    + "\" />\r\n                </div>\r\n            </form>\r\n        </div>\r\n        <div class=\"card-text\">\r\n            <table class=\"table\">\r\n                <thead>\r\n                    <tr>\r\n                        <th>Category</th>\r\n                        <th>Amount Allocated</th>\r\n                        <th>Actions</th>\r\n                    </tr>\r\n                </thead>\r\n                <tbody>\r\n"
+    + ((stack1 = helpers.each.call(alias3,(depth0 != null ? depth0.BudgetAllocations : depth0),{"name":"each","hash":{},"fn":container.program(4, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "                    <tr>\r\n                        <td>\r\n                            <label>\r\n                                Category\r\n                                <select>\r\n                                    <option value=\"0\">None</option>\r\n"
+    + ((stack1 = helpers.each.call(alias3,(depths[1] != null ? depths[1].categories : depths[1]),{"name":"each","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "                                </select>\r\n                            </label>\r\n                        </td>\r\n                        <td>\r\n                            <div class=\"amountCell editCell\">\r\n"
+    + ((stack1 = container.invokePartial(partials.moneyInput,depth0,{"name":"moneyInput","hash":{"amountInCents":(depth0 != null ? depth0.AmountInCents : depth0),"label":"Allocation "},"data":data,"indent":"                                ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "                            </div>\r\n                        </td>\r\n                        <td>\r\n                            <button>Add</button>\r\n                        </td>\r\n                    </tr>\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n        <div class=\"card-text\">\r\n            <button class=\"btn btn-primary budget-edit-cancel-button\">Cancel</button>\r\n            <button class=\"btn btn-primary budget-edit-save-button\">Save</button>\r\n        </div>\r\n    </div>\r\n</div>\r\n";
+},"2":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var alias1=container.escapeExpression, alias2=depth0 != null ? depth0 : (container.nullContext || {}), alias3=helpers.helperMissing;
+
+  return "                    <tr data-budget-budget-allocation-id=\""
+    + alias1(container.lambda((depth0 != null ? depth0.BudgetAllocationID : depth0), depth0))
+    + "\">\r\n                        <td class=\"categoryCell\">"
+    + alias1((helpers.getCategoryName || (depth0 && depth0.getCategoryName) || alias3).call(alias2,(depths[2] != null ? depths[2].categories : depths[2]),(depth0 != null ? depth0.CategoryID : depth0),{"name":"getCategoryName","hash":{},"data":data}))
+    + "</td>\r\n                        <td class=\"allocatedAmountCell\">"
+    + alias1((helpers.formattedMoneyAmount || (depth0 && depth0.formattedMoneyAmount) || alias3).call(alias2,(depth0 != null ? depth0.AllocatedAmountInCents : depth0),{"name":"formattedMoneyAmount","hash":{},"data":data}))
+    + "</td>\r\n                    </tr>\r\n";
+},"4":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1;
+
+  return "                    <tr>\r\n                        <td>\r\n                            <label>\r\n                                Category\r\n"
+    + ((stack1 = container.invokePartial(partials.categorySelect,depth0,{"name":"categorySelect","hash":{"categories":(depths[1] != null ? depths[1].categories : depths[1])},"data":data,"indent":"                                ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "                            </label>\r\n                        </td>\r\n                        <td>\r\n"
+    + ((stack1 = container.invokePartial(partials.moneyInput,depth0,{"name":"moneyInput","hash":{"amountInCents":(depth0 != null ? depth0.AmountInCents : depth0),"label":""},"data":data,"indent":"                            ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "                        </td>\r\n                        <td>\r\n                            <button>Save</button>\r\n                        </td>\r\n                    </tr>\r\n";
+},"6":function(container,depth0,helpers,partials,data) {
     var alias1=container.lambda, alias2=container.escapeExpression;
 
   return "                                    <option value=\""
@@ -49,7 +69,7 @@ templates['budgets'] = template({"1":function(container,depth0,helpers,partials,
 
   return ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.budgets : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "<div class=\"card\">\r\n    <div class=\"card-body card-add-budget\">\r\n        <h4 class=\"card-title\">Add New Budget</h4>\r\n        <div class=\"card-text\">\r\n            <form>\r\n                <div class=\"form-group\">\r\n                    <label for=\"addBudgetNameInput\">Name</label>\r\n                    <input type=\"text\" class=\"form-control\" id=\"addBudgetNameInput\" />\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"addBudgetBeginDateInput\">Begin Date</label>\r\n                    <input type=\"date\" class=\"form-control\" id=\"addBudgetBeginDateInput\" />\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <label for=\"addBudgetEndDateInput\">End Date</label>\r\n                    <input type=\"date\" class=\"form-control\" id=\"addBudgetEndDateInput\" />\r\n                </div>\r\n                <button class=\"btn btn-primary budget-add-new-button\">Submit</button>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>";
-},"useData":true,"useDepths":true});
+},"usePartial":true,"useData":true,"useDepths":true});
 templates['categories'] = template({"1":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
@@ -85,15 +105,13 @@ templates['transactions'] = template({"1":function(container,depth0,helpers,part
     + alias2(alias1((depth0 != null ? depth0.Description : depth0), depth0))
     + "\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n"
     + ((stack1 = helpers["if"].call(alias3,(depth0 != null ? depth0.Category : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.program(4, data, 0, blockParams, depths),"data":data})) != null ? stack1 : "")
-    + "            <div class=\"categoryCell editCell\">\r\n                <select class=\"categoryEditSelect\">\r\n                    <option value=\"0\">None</option>\r\n"
-    + ((stack1 = helpers.each.call(alias3,(depths[1] != null ? depths[1].categories : depths[1]),{"name":"each","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "                </select>\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"amountCell displayCell\">"
+    + "            <div class=\"categoryCell editCell\">\r\n"
+    + ((stack1 = container.invokePartial(partials.categorySelect,depth0,{"name":"categorySelect","hash":{"categories":(depths[1] != null ? depths[1].categories : depths[1])},"data":data,"indent":"                ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"amountCell displayCell\">"
     + alias2((helpers.formattedMoneyAmount || (depth0 && depth0.formattedMoneyAmount) || alias4).call(alias3,(depth0 != null ? depth0.AmountInCents : depth0),{"name":"formattedMoneyAmount","hash":{},"data":data}))
-    + "</div>\r\n            <div class=\"amountCell editCell\">\r\n                <label>$<input type=\"number\" class=\"dollarEditInput numericOnly\" placeholder=\"0\" step=\"1\" min=\"0\" max=\"9999\" value=\""
-    + alias2((helpers.dollarAmount || (depth0 && depth0.dollarAmount) || alias4).call(alias3,(depth0 != null ? depth0.AmountInCents : depth0),{"name":"dollarAmount","hash":{},"data":data}))
-    + "\" data-currentValue=\"0\"/></label><label>.<input type=\"number\" class=\"centEditInput\" placeholder=\"00\" step=\"1\" min=\"0\" max=\"99\" value=\""
-    + alias2((helpers.centAmount || (depth0 && depth0.centAmount) || alias4).call(alias3,(depth0 != null ? depth0.AmountInCents : depth0),{"name":"centAmount","hash":{},"data":data}))
-    + "\" /></label>\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"buttonCell\">\r\n                <button class=\"transactionEditButton\">Edit</button>\r\n                <button class=\"transactionDeleteButton\">Delete</button>\r\n            </div>\r\n        </td>\r\n    </tr>\r\n";
+    + "</div>\r\n            <div class=\"amountCell editCell\">\r\n"
+    + ((stack1 = container.invokePartial(partials.moneyInput,depth0,{"name":"moneyInput","hash":{"amountInCents":(depth0 != null ? depth0.AmountInCents : depth0),"label":""},"data":data,"indent":"                ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"buttonCell\">\r\n                <button class=\"transactionEditButton\">Edit</button>\r\n                <button class=\"transactionDeleteButton\">Delete</button>\r\n            </div>\r\n        </td>\r\n    </tr>\r\n";
 },"2":function(container,depth0,helpers,partials,data) {
     var stack1;
 
@@ -102,21 +120,15 @@ templates['transactions'] = template({"1":function(container,depth0,helpers,part
     + "</div>\r\n";
 },"4":function(container,depth0,helpers,partials,data) {
     return "            <div class=\"categoryCell displayCell\">None</div>\r\n";
-},"6":function(container,depth0,helpers,partials,data) {
-    var alias1=container.lambda, alias2=container.escapeExpression;
-
-  return "                    <option value=\""
-    + alias2(alias1((depth0 != null ? depth0.CategoryID : depth0), depth0))
-    + "\">"
-    + alias2(alias1((depth0 != null ? depth0.Name : depth0), depth0))
-    + "</option>\r\n";
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {});
+    var stack1;
 
   return "﻿<tbody>\r\n"
-    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.transactions : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "    <tr>\r\n        <td>\r\n            <div class=\"dateCell addCell\">\r\n                <input type=\"date\" class=\"dateAddInput\" value=\"\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"descriptionCell addCell\">\r\n                <input type=\"text\" class=\"descriptionAddInput\" value=\"\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"categoryCell addCell\">\r\n                <select class=\"categoryAddSelect\">\r\n                    <option value=\"0\">None</option>\r\n"
-    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.categories : depth0),{"name":"each","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + "                </select>\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"amountCell addCell\">\r\n                <label>$<input type=\"number\" class=\"dollarAddInput\" placeholder=\"0\" step=\"1\" min=\"0\" max=\"9999\" value=\"0\" data-currentValue=\"0\" /></label><label>.<input type=\"number\" class=\"centAddInput\" placeholder=\"00\" step=\"1\" min=\"0\" max=\"99\" value=\"0\" /></label>\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"buttonCell\">\r\n                <button class=\"transactionAddButton\">Add</button>\r\n            </div>\r\n        </td>\r\n    </tr>\r\n</tbody>";
-},"useData":true,"useDepths":true});
+    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? depth0.transactions : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + "    <tr>\r\n        <td>\r\n            <div class=\"dateCell addCell\">\r\n                <input type=\"date\" class=\"dateAddInput\" value=\"\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"descriptionCell addCell\">\r\n                <input type=\"text\" class=\"descriptionAddInput\" value=\"\" />\r\n            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"categoryCell addCell\">\r\n"
+    + ((stack1 = container.invokePartial(partials.categorySelect,depth0,{"name":"categorySelect","hash":{"categories":(depth0 != null ? depth0.categories : depth0)},"data":data,"indent":"                ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"amountCell addCell\">\r\n"
+    + ((stack1 = container.invokePartial(partials.moneyInput,depth0,{"name":"moneyInput","hash":{"amountInCents":0,"label":""},"data":data,"indent":"                ","helpers":helpers,"partials":partials,"decorators":container.decorators})) != null ? stack1 : "")
+    + "            </div>\r\n        </td>\r\n        <td>\r\n            <div class=\"buttonCell\">\r\n                <button class=\"transactionAddButton\">Add</button>\r\n            </div>\r\n        </td>\r\n    </tr>\r\n</tbody>";
+},"usePartial":true,"useData":true,"useDepths":true});
 })();

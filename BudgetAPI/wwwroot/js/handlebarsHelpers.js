@@ -26,4 +26,8 @@
     Handlebars.registerHelper('formattedDate', function (rawDate) {
         return moment(rawDate).format('YYYY-MM-DD');
     });
+
+    Handlebars.registerHelper('getCategoryName', function (categoriesArray, id) {
+        return categoriesArray.filter((c) => c.CategoryID === id).map((c) => c.Name).pop() || '';
+    });
 }

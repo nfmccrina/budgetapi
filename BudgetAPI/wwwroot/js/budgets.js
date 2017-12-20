@@ -1,5 +1,6 @@
 ﻿var budgetRepository;
 var categoryRepository;
+var budgetAllocationRepository;
 
 function updateView(model) {
     $('.card-deck').html(Handlebars.templates['budgets'](model));
@@ -121,12 +122,18 @@ function setupEventHandlers() {
 function fetchData() {
     var budgetPromise = budgetRepository.get();
     var categoryPromise = categoryRepository.get();
+    var budgetAllocationPromise = budgetAllocationRepository.get();
 
-    var finalPromise = Promise.all([budgetPromise, categoryPromise]);
+    var finalPromise = Promise.all([budgetPromise, categoryPromise, budgetAllocationPromise]);
 
     return finalPromise.then((values) => {
         return Promise.resolve([
-            values[0],
+            values[0].map((b) => {
+                b.BudgetAllocations = values[2].filter((ba) => {
+                    return ba.BudgetID === b.BudgetID;
+                });
+                return b;
+            }),
             values[1].map((c) => {
                 return {
                     CategoryID: c.categoryID,
@@ -144,6 +151,7 @@ $(document).ready(function () {
 
     budgetRepository = new BudgetRepository();
     categoryRepository = new CategoryRepository();
+    budgetAllocationRepository = new BudgetAllocationRepository();
 
     fetchData()
         .then((response) => updateView({

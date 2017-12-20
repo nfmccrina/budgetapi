@@ -114,6 +114,9 @@ namespace BudgetAPI.Controllers
             _context.Budgets.Remove(budget);
             await _context.SaveChangesAsync();
 
+            _context.BudgetAllocations.RemoveRange(_context.BudgetAllocations.Where(ba => ba.BudgetID == id));
+            await _context.SaveChangesAsync();
+
             return Ok(budget);
         }
 

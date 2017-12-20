@@ -37,7 +37,7 @@ function transactionAddButton_onClick(e) {
         AmountInCents: moneyValue.toString(),
         Date: moment($('.dateAddInput').val()).format('YYYY-MM-DD'),
         Description: $('.descriptionAddInput').val(),
-        CategoryID: $('.categoryAddSelect').find('option:selected').val(),
+        CategoryID: $(this).parents('tr').find('.categorySelect').find('option:selected').val(),
         UserID: sessionStorage.getItem('currentUserId')
     };
 

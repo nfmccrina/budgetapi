@@ -143,6 +143,29 @@ function TransactionRepository() {
     }
 }
 
+function BudgetAllocationRepository() {
+    this.get = function () {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: endpoint + 'BudgetAllocations?userid=' + sessionStorage.getItem('currentUserId'),
+                method: 'GET',
+                contentType: 'application/json',
+                success: function (response) {
+                    resolve(response.map((ba) => {
+                        return {
+                            BudgetAllocationID: ba.budgetAllocationID,
+                            AllocatedAmountInCents: ba.allocatedAmountInCents,
+                            CategoryID: ba.categoryID,
+                            BudgetID: ba.budgetID
+                        };
+                    }));
+                },
+                error: reject
+            });
+        });
+    }
+}
+
 function BudgetRepository() {
     this.get = function () {
         return new Promise((resolve, reject) => {
